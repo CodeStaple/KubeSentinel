@@ -1,0 +1,20 @@
+apiVersion: v2
+name: my-operator-chart
+description: A Helm chart for deploying the My Operator
+type: application
+version: 0.1.0 # This is the chart version
+appVersion: "0.0.1" # This is the version of the application being deployed (matches operator version)
+kubeVersion: ">=1.20.0-0" # Compatible Kubernetes versions
+
+keywords:
+  - operator
+  - ai
+  - security
+
+home: https://example.com/my-operator # Replace with actual home page if available
+sources:
+  - https://github.com/example/my-operator # Replace with actual source repository
+
+maintainers:
+  - name: Example Maintainer
+    email: maintainer@example.com
