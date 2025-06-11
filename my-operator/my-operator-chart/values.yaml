@@ -1,0 +1,84 @@
+# Default values for my-operator-chart.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+replicaCount: 1
+
+image:
+  repository: example.com/my-operator # Will be overridden by actual image, e.g., controller:latest from Makefile
+  pullPolicy: IfNotPresent
+  # Overrides the image tag whose default is the chart appVersion.
+  tag: "0.0.1"
+
+imagePullSecrets: []
+nameOverride: ""
+fullnameOverride: ""
+
+serviceAccount:
+  # Specifies whether a service account should be created
+  create: true
+  # Annotations to add to the service account
+  annotations: {}
+  # The name of the service account to use.
+  # If not set and create is true, a name is generated using the fullname template
+  name: "my-operator-controller-manager" # Aligns with what operator-sdk might generate
+
+podAnnotations: {}
+podLabels: {}
+
+podSecurityContext: {}
+  # fsGroup: 2000
+
+securityContext: {}
+  # capabilities:
+  #   drop:
+  #   - ALL
+  # readOnlyRootFilesystem: true
+  # runAsNonRoot: true
+  # runAsUser: 1000
+
+# Service is not strictly needed for a basic operator manager deployment
+# unless it exposes metrics or a webhook on a service endpoint.
+# For now, assuming metrics are scraped directly from the pod or handled by a ServiceMonitor.
+service:
+  enabled: false
+  type: ClusterIP
+  port: 80
+
+# Resources for the operator deployment
+resources:
+  limits:
+    cpu: 500m
+    memory: 256Mi
+  requests:
+    cpu: 100m
+    memory: 128Mi
+
+autoscaling:
+  enabled: false
+  minReplicas: 1
+  maxReplicas: 3
+  targetCPUUtilizationPercentage: 80
+  # targetMemoryUtilizationPercentage: 80
+
+nodeSelector: {}
+
+tolerations: []
+
+affinity: {}
+
+# Additional environment variables to set in the operator deployment
+env: []
+#  - name: MY_ENV_VAR
+#    value: "my_value"
+
+# Operator specific configurations
+# These would be custom values your operator might need.
+# For example:
+# operatorConfig:
+#   logLevel: "info"
+#   namespaceToWatch: "" # Empty means all namespaces by default for many operators
+
+# Used to enable/disable creation of CRDs by the chart.
+# If CRDs are managed externally (e.g. by a separate lifecycle tool or manually), set to false.
+createCRDs: true
