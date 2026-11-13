@@ -35,6 +35,13 @@ stages:
     needs:
       - "checkout"
     network: "egress-https"
+    resources:
+      requests:
+        cpu: "500m"
+        memory: "2Gi"
+      limits:
+        cpu: "1500m"
+        memory: "3Gi"
     build:
       provenance: true
       sbom: true
