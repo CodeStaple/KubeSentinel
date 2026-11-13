@@ -1,0 +1,18 @@
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: kubesentinel
+  labels:
+    app.kubernetes.io/name: kubesentinel
+spec:
+  podSelector:
+    matchLabels:
+      app.kubernetes.io/name: kubesentinel
+  policyTypes:
+    - Ingress
+  ingress:
+    - from:
+        - podSelector: {}
+    - ports:
+        - port: 8081
+          protocol: TCP
